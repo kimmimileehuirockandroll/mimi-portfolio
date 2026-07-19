@@ -200,15 +200,28 @@
   @media(max-width:900px){.media{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:560px){.media{grid-template-columns:1fr}.mcard,.mcard:nth-child(3n),.mcard:nth-child(3n+1){transform:none}}
 
-  /* REELS embeds (iframe) */
+  /* REELS custom cards (세로 커버 + 조회수) */
   .reels-head{font-family:var(--hand);font-size:26px;color:var(--pink-deep);transform:rotate(-1.5deg);display:inline-block;margin:44px 0 6px}
-  .reels{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:18px}
-  .reels iframe{width:100%;height:560px;border:2.5px solid var(--ink);border-radius:8px;background:#fff;
-    box-shadow:5px 6px 0 rgba(20,18,16,.16);display:block}
-  .reels iframe:nth-child(3n+1){transform:rotate(-1.2deg)}
-  .reels iframe:nth-child(3n){transform:rotate(1deg)}
-  @media(max-width:900px){.reels{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:560px){.reels{grid-template-columns:1fr}.reels iframe{transform:none!important}}
+  .reels{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:18px}
+  .reel-card{position:relative;display:block;aspect-ratio:9/16;border-radius:10px;overflow:hidden;
+    border:2.5px solid var(--ink);box-shadow:5px 6px 0 rgba(20,18,16,.16);
+    background:linear-gradient(160deg,var(--pink),var(--pink-deep));
+    background-image:var(--cover,none);background-size:cover;background-position:center;
+    transition:transform .2s,box-shadow .2s}
+  .reel-card:nth-child(3n+1){transform:rotate(-1.2deg)}
+  .reel-card:nth-child(3n){transform:rotate(1deg)}
+  .reel-card:hover{transform:rotate(0) translateY(-5px);box-shadow:8px 10px 0 var(--hot);z-index:3}
+  .reel-card::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(0,0,0,.62))}
+  .reel-card .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;
+    width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.9);border:2.5px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;transition:.2s}
+  .reel-card:hover .play{background:var(--hot)}
+  .reel-card .play::before{content:"";margin-left:4px;border-style:solid;border-width:9px 0 9px 15px;border-color:transparent transparent transparent var(--ink)}
+  .reel-card:hover .play::before{border-left-color:#fff}
+  .reel-card .views{position:absolute;left:12px;bottom:11px;z-index:2;color:#fff;font-family:var(--hand);
+    font-size:24px;display:flex;align-items:center;gap:6px;text-shadow:0 1px 6px rgba(0,0,0,.75)}
+  .reel-card .views svg{width:20px;height:20px;fill:#fff}
+  @media(max-width:560px){.reels{gap:14px}.reel-card,.reel-card:nth-child(3n),.reel-card:nth-child(3n+1){transform:none}}
 
   /* CONTACT */
   .contact{text-align:center;position:relative}
@@ -395,12 +408,25 @@
     <!-- REELS: @1jjang_mimi 조회수 상위 릴스 (iframe 임베드 — 스크립트 불필요) -->
     <div class="reveal"><span class="reels-head">🎬 인기 릴스 @1jjang_mimi</span></div>
     <div class="reels reveal">
-      <iframe src="https://www.instagram.com/reel/DVQdL2MEfz7/embed" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen title="릴스"></iframe>
-      <iframe src="https://www.instagram.com/reel/DBFwwg0yQyh/embed" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen title="릴스"></iframe>
-      <iframe src="https://www.instagram.com/reel/C8bHMhapQGb/embed" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen title="릴스"></iframe>
-      <iframe src="https://www.instagram.com/reel/DNnSaItRMDA/embed" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen title="릴스"></iframe>
-      <iframe src="https://www.instagram.com/reel/C_PS2joym6I/embed" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen title="릴스"></iframe>
-      <iframe src="https://www.instagram.com/reel/DVdW9p2EUtH/embed" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen title="릴스"></iframe>
+      <!-- 커버 이미지: reels/1.jpg~6.jpg 넣으면 표시됨 / 조회수: 아래 숫자만 바꾸면 됨 -->
+      <a class="reel-card" style="--cover:url('reels/1.jpg')" href="https://www.instagram.com/reel/DVQdL2MEfz7/" target="_blank" rel="noopener">
+        <span class="play"></span><span class="views"><svg viewBox="0 0 24 24"><path d="M12 5C5.6 5 1 12 1 12s4.6 7 11 7 11-7 11-7-4.6-7-11-7zm0 11.5A4.5 4.5 0 1112 7a4.5 4.5 0 010 9.5zM12 9a3 3 0 100 6 3 3 0 000-6z"/></svg>5.1만</span>
+      </a>
+      <a class="reel-card" style="--cover:url('reels/2.jpg')" href="https://www.instagram.com/reel/DBFwwg0yQyh/" target="_blank" rel="noopener">
+        <span class="play"></span><span class="views"><svg viewBox="0 0 24 24"><path d="M12 5C5.6 5 1 12 1 12s4.6 7 11 7 11-7 11-7-4.6-7-11-7zm0 11.5A4.5 4.5 0 1112 7a4.5 4.5 0 010 9.5zM12 9a3 3 0 100 6 3 3 0 000-6z"/></svg>—만</span>
+      </a>
+      <a class="reel-card" style="--cover:url('reels/3.jpg')" href="https://www.instagram.com/reel/C8bHMhapQGb/" target="_blank" rel="noopener">
+        <span class="play"></span><span class="views"><svg viewBox="0 0 24 24"><path d="M12 5C5.6 5 1 12 1 12s4.6 7 11 7 11-7 11-7-4.6-7-11-7zm0 11.5A4.5 4.5 0 1112 7a4.5 4.5 0 010 9.5zM12 9a3 3 0 100 6 3 3 0 000-6z"/></svg>—만</span>
+      </a>
+      <a class="reel-card" style="--cover:url('reels/4.jpg')" href="https://www.instagram.com/reel/DNnSaItRMDA/" target="_blank" rel="noopener">
+        <span class="play"></span><span class="views"><svg viewBox="0 0 24 24"><path d="M12 5C5.6 5 1 12 1 12s4.6 7 11 7 11-7 11-7-4.6-7-11-7zm0 11.5A4.5 4.5 0 1112 7a4.5 4.5 0 010 9.5zM12 9a3 3 0 100 6 3 3 0 000-6z"/></svg>—만</span>
+      </a>
+      <a class="reel-card" style="--cover:url('reels/5.jpg')" href="https://www.instagram.com/reel/C_PS2joym6I/" target="_blank" rel="noopener">
+        <span class="play"></span><span class="views"><svg viewBox="0 0 24 24"><path d="M12 5C5.6 5 1 12 1 12s4.6 7 11 7 11-7 11-7-4.6-7-11-7zm0 11.5A4.5 4.5 0 1112 7a4.5 4.5 0 010 9.5zM12 9a3 3 0 100 6 3 3 0 000-6z"/></svg>—만</span>
+      </a>
+      <a class="reel-card" style="--cover:url('reels/6.jpg')" href="https://www.instagram.com/reel/DVdW9p2EUtH/" target="_blank" rel="noopener">
+        <span class="play"></span><span class="views"><svg viewBox="0 0 24 24"><path d="M12 5C5.6 5 1 12 1 12s4.6 7 11 7 11-7 11-7-4.6-7-11-7zm0 11.5A4.5 4.5 0 1112 7a4.5 4.5 0 010 9.5zM12 9a3 3 0 100 6 3 3 0 000-6z"/></svg>—만</span>
+      </a>
     </div>
   </div>
 </section>
