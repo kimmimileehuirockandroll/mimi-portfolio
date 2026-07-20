@@ -51,7 +51,7 @@
   .grain{position:fixed;inset:0;z-index:999;pointer-events:none;opacity:.06;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px;position:relative;z-index:1}
   section{position:relative;padding:110px 0;overflow:hidden}
   @media(max-width:720px){section{padding:74px 0}.wrap{padding:0 20px}}
 
@@ -62,7 +62,7 @@
   .band-pink > *{position:relative;z-index:1}
 
   /* doodles */
-  .doodle{position:absolute;pointer-events:none;z-index:2}
+  .doodle{position:absolute;pointer-events:none;z-index:0}
   svg.ic{display:block}
 
   /* highlight-block title (쓰레기 특허 스타일) */
